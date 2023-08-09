@@ -3,8 +3,10 @@ package ru.netology.nmedianew
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.activity.viewModels
 import ru.netology.nmedianew.databinding.ActivityMainBinding
 import ru.netology.nmedianew.dto.Post
+import ru.netology.nmedianew.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,41 +14,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.root.setOnClickListener {  }
-        binding.like.setOnClickListener {  }
-
-        val post = Post(
-            1L,
-            "Нетология. Университет интернет-профессий будущего",
-            "21 мая в 18:36",
-            "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
-            false,
-            999,
-            1099
-        )
-        with(binding) {
-            author.text = post.author
-            published.text = post.published
-            content.text = post.content
-            likeCount.text = rounding(post.likes)
-            shareCount.text =rounding(post.shars)
-            if (post.likeddByMe) {
-                like.setImageResource(R.drawable.baseline_favorite_24_red)
-
-            }
-
-            like.setOnClickListener {
-                post.likeddByMe = !post.likeddByMe
-                if (post.likeddByMe) post.likes++ else post.likes--
-                like.setImageResource(if (post.likeddByMe) R.drawable.baseline_favorite_24_red else R.drawable.ic_baseline_favorite_24)
+        val viewModel by viewModels<PostViewModel>()
+        viewModel.data.observe(this){post ->
+            with(binding) {
+                author.text = post.author
+                published.text = post.published
+                content.text = post.content
                 likeCount.text = rounding(post.likes)
+                shareCount.text =rounding(post.shars)
+                like.setImageResource(if (post.likeddByMe) R.drawable.baseline_favorite_24_red else R.drawable.ic_baseline_favorite_24 )
+
+
+
+
+
+
+
             }
-            share.setOnClickListener {
-                post.shars++
-                shareCount.text = rounding(post.shars)
-            }
-            avatar.setOnClickListener {  }
+
         }
+        binding.like.setOnClickListener {
+            viewModel.like()
+
+
+        }
+
+        binding.share.setOnClickListener {
+            viewModel.share()
+        }
+
 
 
 
