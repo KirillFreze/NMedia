@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.viewModels
+import ru.netology.nmedianew.adapter.PostsAdapter
 import ru.netology.nmedianew.databinding.ActivityMainBinding
 import ru.netology.nmedianew.dto.Post
 import ru.netology.nmedianew.viewmodel.PostViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,34 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModel by viewModels<PostViewModel>()
-        viewModel.data.observe(this){post ->
-            with(binding) {
-                author.text = post.author
-                published.text = post.published
-                content.text = post.content
-                likeCount.text = rounding(post.likes)
-                shareCount.text =rounding(post.shars)
-                like.setImageResource(if (post.likeddByMe) R.drawable.baseline_favorite_24_red else R.drawable.ic_baseline_favorite_24 )
-
-
-
-
-
-
-
-            }
-
+        val viewModel: PostViewModel by viewModels()
+        val adapter = PostsAdapter {
+            viewModel.likeById(it.id)
         }
-        binding.like.setOnClickListener {
-            viewModel.like()
-
-
+        binding.list.adapter = adapter
+        viewModel.data.observe(this) { posts ->
+            adapter.list = posts
         }
-
-        binding.share.setOnClickListener {
-            viewModel.share()
-        }
+    }
 
 
 
@@ -74,5 +57,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-}
+
 
