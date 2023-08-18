@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.AppTheme.LikeButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_selector</item>
+        <item name="android:minWidth">0dp</item>
+
+    </style>
+    <style name="Widget.AppTheme.ShareButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">#000000</item>
+
+
+    </style>
+</resources>

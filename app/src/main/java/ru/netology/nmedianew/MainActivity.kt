@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
             }
+
+
         })
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->

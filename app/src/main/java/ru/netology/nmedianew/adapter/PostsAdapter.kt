@@ -15,6 +15,8 @@ interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
+
+
 }
 
 class PostsAdapter(private val onInteractionListener: OnInteractionListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()){
@@ -53,19 +55,18 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likeCount.text = rounding(post.likes)
-            shareCount.text = rounding(post.shars)
 
-            if (post.likeddByMe) {
-                like.setImageResource(R.drawable.baseline_favorite_24_red)
-            } else like.setImageResource(R.drawable.ic_baseline_favorite_24)
+            share.text = rounding(post.shars)
+
+
+            like.isChecked = post.likeddByMe
+            like.text = rounding(post.likes)
             like.setOnClickListener{
-                if (post.likeddByMe) post.likes-- else post.likes++
-                onInteractionListener.onLike(post)
+
             }
             share.setOnClickListener {
                 post.shars++
-                shareCount.text = rounding(post.shars)
+                share.text = rounding(post.shars)
             }
             menu.setOnClickListener{
                 PopupMenu(it.context, it).apply {
@@ -84,6 +85,9 @@ class PostViewHolder(
                         }
                     }
                 }.show()
+            }
+            like.setOnClickListener {
+                onInteractionListener.onLike(post)
             }
         }
     }
