@@ -4,6 +4,7 @@
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
     <string name="post_text">Post text</string>
-    <string name="error_empty_cotent">Empty text</string>
+    <string name="error_empty_content">Empty text</string>
+    <string name="chooser_share_post">Share post</string>
     <string name="edit_message">Edit message</string>
 </resources>

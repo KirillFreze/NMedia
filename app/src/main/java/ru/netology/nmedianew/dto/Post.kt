@@ -7,5 +7,6 @@ data class Post(
     val content: String,
     var likeddByMe: Boolean,
     var likes: Int,
-    var shars: Int
+    var shars: Int,
+    val video: Boolean
 )

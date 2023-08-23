@@ -14,7 +14,8 @@ private val empty = Post(
     "",
     false,
     0,
-    0
+    0,
+    false
 )
 class PostViewModel: ViewModel() {
     private  val repository: PostRepository = PostRepositoryInMemoryImpl()

@@ -1,8 +1,13 @@
 package ru.netology.nmedianew.adapter
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,11 +15,13 @@ import ru.netology.nmedianew.R
 import ru.netology.nmedianew.databinding.CardPostBinding
 
 import ru.netology.nmedianew.dto.Post
-import ru.netology.nmedianew.rounding
+import ru.netology.nmedianew.activity.rounding
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
+    fun onShare(post: Post) {}
+    fun onVideo()
 
 
 }
@@ -61,13 +68,14 @@ class PostViewHolder(
 
             like.isChecked = post.likeddByMe
             like.text = rounding(post.likes)
-            like.setOnClickListener{
-
-            }
-            share.setOnClickListener {
-                post.shars++
-                share.text = rounding(post.shars)
-            }
+            if (post.video) groupVideo.visibility = View.VISIBLE
+//            like.setOnClickListener{
+//
+//            }
+//            share.setOnClickListener {
+//                post.shars++
+//                share.text = rounding(post.shars)
+//            }
             menu.setOnClickListener{
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_options)
@@ -78,6 +86,7 @@ class PostViewHolder(
                                 true
                             }
                             R.id.edit ->{
+
                                 onInteractionListener.onEdit(post)
                                 true
                             }
@@ -88,6 +97,19 @@ class PostViewHolder(
             }
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
+            }
+            share.setOnClickListener {
+                onInteractionListener.onShare(post)
+                post.shars++
+                share.text = rounding(post.shars)
+            }
+            play.setOnClickListener {
+                onInteractionListener.onVideo()
+
+            }
+            video.setOnClickListener {
+                onInteractionListener.onVideo()
+
             }
         }
     }

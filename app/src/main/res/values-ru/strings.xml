@@ -5,6 +5,7 @@
     <string name="remove">Удалить</string>
     <string name="edit">Редактировать</string>
     <string name="post_text">Текст поста</string>
-    <string name="error_empty_cotent">Пустой текст</string>
+    <string name="error_empty_content">Пустой текст</string>
+    <string name="chooser_share_post">Поделиться</string>
     <string name="edit_message">Редактирование поста</string>
 </resources>
