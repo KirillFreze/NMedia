@@ -68,7 +68,7 @@ class PostViewHolder(
 
             like.isChecked = post.likeddByMe
             like.text = rounding(post.likes)
-            if (post.video) groupVideo.visibility = View.VISIBLE
+            if (post.video) groupVideo.visibility = View.VISIBLE else groupVideo.visibility = View.GONE
 //            like.setOnClickListener{
 //
 //            }
