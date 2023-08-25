@@ -42,6 +42,7 @@ class PostRepositoryFileImpl(
 
             nextId
         }
+        data.value = posts
     }
 
     override fun getAll(): LiveData<List<Post>> = data
