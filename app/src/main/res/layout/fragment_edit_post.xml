@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NewPostActivity">
+    tools:context=".activity.EditPostFragment">
 
     <EditText
-        android:id="@+id/edit"
+        android:id="@+id/editPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="start|top"
@@ -16,7 +16,7 @@
         />
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/bottomAppBarEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -24,12 +24,12 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ok"
+        android:id="@+id/okEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         app:srcCompat="@drawable/ic_ok_24"
-        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchor="@id/bottomAppBarEdit"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

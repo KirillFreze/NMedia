@@ -26,13 +26,13 @@ class PostRepositoryFileImpl(
                 gson.fromJson(it, type)
 
             }
-        }else {
+        } else {
 
-                emptyList()
-            }
+            emptyList()
+        }
 
         val nextIdFile = context.filesDir.resolve(nextIdKey)
-        nextId =  if (nextIdFile.exists()) {
+        nextId = if (nextIdFile.exists()) {
 
             nextIdFile.reader().buffered().use {
                 gson.fromJson(it, Long::class.java)

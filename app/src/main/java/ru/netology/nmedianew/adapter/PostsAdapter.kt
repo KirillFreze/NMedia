@@ -22,6 +22,7 @@ interface OnInteractionListener {
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
     fun onVideo()
+    fun onSeparatePost(post: Post)
 
 
 }
@@ -110,6 +111,9 @@ class PostViewHolder(
             video.setOnClickListener {
                 onInteractionListener.onVideo()
 
+            }
+            content.setOnClickListener {
+                onInteractionListener.onSeparatePost(post)
             }
         }
     }
