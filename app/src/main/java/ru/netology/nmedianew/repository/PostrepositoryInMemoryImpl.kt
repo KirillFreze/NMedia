@@ -15,7 +15,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-            //true
+            false
         ),
         Post(
             id =idNext++,
@@ -25,7 +25,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             78,
             1500,
-            //false
+            false
         ),
         Post(
             id =idNext++,
@@ -35,7 +35,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             458,
             1000000,
-            //true
+            false
         ),
         Post(
             id =idNext++,
@@ -45,7 +45,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-            //false
+            false
         ),
         Post(
             id =idNext++,
@@ -55,7 +55,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-            //false
+            false
         ),
         Post(
             id =idNext++,
@@ -65,7 +65,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-           // false
+            false
         ),
         Post(
             id =idNext++,
@@ -75,7 +75,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-            //false
+            false
         ),
         Post(
             id =idNext++,
@@ -85,7 +85,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-           // true
+            false
         ),
         Post(
             id =idNext++,
@@ -95,7 +95,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             false,
             999,
             90,
-            //false
+            false
         )
 
     )
@@ -128,6 +128,10 @@ class PostRepositoryInMemoryImpl: PostRepository {
            }
         }
         data.value = posts
+    }
+
+    override fun sharsById(id: Long) {
+        TODO("Not yet implemented")
     }
 
 

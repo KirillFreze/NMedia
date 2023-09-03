@@ -17,7 +17,7 @@ private val empty = Post(
     false,
     0,
     0,
-    //false
+    false
 )
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
@@ -40,6 +40,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun likeById(id: Long) = repository.likeById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun sharsById(id :Long) = repository.sharsById(id)
     fun edit(post: Post) {
         edited.value = post
 

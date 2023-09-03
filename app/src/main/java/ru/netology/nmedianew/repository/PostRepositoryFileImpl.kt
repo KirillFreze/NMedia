@@ -87,6 +87,10 @@ class PostRepositoryFileImpl(
         sync()
     }
 
+    override fun sharsById(id: Long) {
+        TODO("Not yet implemented")
+    }
+
     private fun sync() {
         context.filesDir.resolve(postFileName).writer().use {
             it.write(gson.toJson(posts))
