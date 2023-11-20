@@ -12,27 +12,40 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 
 import ru.netology.nmedianew.databinding.FragmentNewPostBinding
+import ru.netology.nmedianew.util.AndroidUtils
+import ru.netology.nmedianew.util.StringArg
 import ru.netology.nmedianew.viewmodel.PostViewModel
 
 class NewPostFragment : Fragment() {
+    companion object {
+        var Bundle.textArg: String? by StringArg
+    }
+
+    private val viewModel: PostViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNewPostBinding.inflate(layoutInflater)
-        val viewModel: PostViewModel by activityViewModels()
+        val binding = FragmentNewPostBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 
-        binding.edit.requestFocus()
+        arguments?.textArg
+            ?.let(binding.edit::setText)
+
         binding.ok.setOnClickListener {
-            val intent = Intent()
-            if (!binding.edit.text.isNullOrBlank()) {
-                val content = binding.edit.text.toString()
-                viewModel.changeContentAndSave(content)
-            }
+            viewModel.changeContent(binding.edit.text.toString())
+            viewModel.save()
+            AndroidUtils.hideKeyboard(requireView())
+        }
+        viewModel.postCreated.observe(viewLifecycleOwner) {
+            viewModel.loadPosts()
             findNavController().navigateUp()
         }
-
         return binding.root
     }
 

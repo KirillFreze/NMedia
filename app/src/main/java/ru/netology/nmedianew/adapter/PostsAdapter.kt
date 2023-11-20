@@ -64,12 +64,12 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
 
-            share.text = rounding(post.shars)
+//            share.text = rounding(post.shars)
 
 
             like.isChecked = post.likedByMe
             like.text = rounding(post.likes)
-            if (post.video) groupVideo.visibility = View.VISIBLE else groupVideo.visibility = View.GONE
+//            if (post.video) groupVideo.visibility = View.VISIBLE else groupVideo.visibility = View.GONE
 //            like.setOnClickListener{
 //
 //            }
@@ -99,11 +99,11 @@ class PostViewHolder(
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
-            share.setOnClickListener {
-                onInteractionListener.onShare(post)
-                //post.shars++
-                share.text = rounding(post.shars)
-            }
+//            share.setOnClickListener {
+//                onInteractionListener.onShare(post)
+//                //post.shars++
+//                share.text = rounding(post.shars)
+//            }
             play.setOnClickListener {
                 onInteractionListener.onVideo()
 

@@ -37,7 +37,7 @@ class EditPostFragment : Fragment() {
         binding.okEdit.setOnClickListener {
             if (!binding.editPost.text.isNullOrBlank()) {
                 val content = binding.editPost.text.toString()
-                viewModel.changeContentAndSave(content)
+                viewModel.changeContent(content)
             }
             findNavController().navigateUp()
         }

@@ -7,4 +7,10 @@
     <string name="error_empty_content">Empty text</string>
     <string name="chooser_share_post">Share post</string>
     <string name="edit_message">Edit message</string>
+    <string name="notification_user_liked">liked</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
+    <string name="empty_posts">empty posts</string>
+    <string name="error_loading">error_loading</string>
+    <string name="retry_loading">retry_loading</string>
 </resources>

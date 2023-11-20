@@ -8,4 +8,10 @@
     <string name="error_empty_content">Пустой текст</string>
     <string name="chooser_share_post">Поделиться</string>
     <string name="edit_message">Редактирование поста</string>
+    <string name="notification_user_liked">поставил лайк посту</string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
+    <string name="empty_posts">Пустые посты</string>
+    <string name="error_loading">Ошибка загрузки</string>
+    <string name="retry_loading">Обновление</string>
 </resources>
