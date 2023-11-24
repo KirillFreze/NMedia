@@ -39,18 +39,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun loadPosts() {
-//        thread {
-//            // Начинаем загрузку
-//            _data.postValue(FeedModel(loading = true))
-//            try {
-//                // Данные успешно получены
-//                val posts = repository.getAll()
-//                FeedModel(posts = posts, empty = posts.isEmpty())
-//            } catch (e: IOException) {
-//                // Получена ошибка
-//                FeedModel(error = true)
-//            }.also(_data::postValue)
-//        }
+
         _data.value = FeedModel(loading = true)
         repository.getAllAsync(object : PostRepository.RepositoryCallback<List<Post>> {
             override fun onSuccess(result: List<Post>) {
@@ -65,11 +54,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun save() {
         edited.value?.let {
-//            thread {
-//                repository.save(it)
-//                _postCreated.postValue(Unit)
-//            }
-            repository.saveAsync(it, object  : PostRepository.RepositoryCallback<Post>{})
+
+            repository.saveAsync(it, object : PostRepository.RepositoryCallback<Post> {})
             _postCreated.postValue(Unit)
         }
         edited.value = empty
@@ -90,7 +76,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun likeById(id: Long) {
 
 
-        repository.likeByIdAsync(id, object : PostRepository.RepositoryCallback<Post>{
+        repository.likeByIdAsync(id, object : PostRepository.RepositoryCallback<Post> {
             override fun onSuccess(result: Post) {
                 _data.postValue(
                     _data.value?.copy(
@@ -102,6 +88,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 )
             }
+
             override fun onError(e: Exception) {
 
             }
@@ -111,7 +98,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun unlikeById(id: Long) {
 
-        repository.unlikeByIdAsync(id, object : PostRepository.RepositoryCallback<Post>{
+        repository.unlikeByIdAsync(id, object : PostRepository.RepositoryCallback<Post> {
             override fun onSuccess(result: Post) {
                 _data.postValue(
                     _data.value?.copy(
@@ -123,6 +110,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 )
             }
+
             override fun onError(e: Exception) {
 
             }
@@ -131,7 +119,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun removeById(id: Long) {
-        repository.removeByIdAsync(id, object : PostRepository.RepositoryCallback<Unit>{
+        repository.removeByIdAsync(id, object : PostRepository.RepositoryCallback<Unit> {
             override fun onSuccess(result: Unit) {
                 _data.postValue(
                     _data.value?.copy(
@@ -143,39 +131,18 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 )
             }
+
             override fun onError(e: Exception) {
-//Обработка ошибок
+
             }
         })
-//loadPosts()
+
     }
 
-    //    private val repository: PostRepository = PostRepositoryRoomImpl(
-//        AppDb.getInstance(context = application).postDao()
-//    )
-//
-//    var data = repository.getAll()
-//    val edited = MutableLiveData(empty)
-//
-//    fun changeContentAndSave(content: String) {
-//        edited.value?.let {
-//            val text = content.trim()
-//            if (it.content != text) {
-//                repository.save(it.copy(author = "Me", content = text, published = "Now"))
-//            }
-//            edited.value = empty
-//        }
-//    }
-//
-//    fun likeById(id: Long) = repository.likeById(id)
-//    fun removeById(id: Long) = repository.removeById(id)
+
     fun sharsById(id: Long) = repository.sharsById(id)
 
-    //    fun edit(post: Post) {
-//        edited.value = post
-//
-//    }
-//
+
     fun clearEdit() {
         edited.value = empty
     }
