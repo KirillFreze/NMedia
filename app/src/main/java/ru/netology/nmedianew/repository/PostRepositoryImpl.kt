@@ -20,6 +20,7 @@ class PostRepositoryImpl: PostRepository {
         .build()
     private val gson = Gson()
     private val typeToken = object : TypeToken<List<Post>>() {}
+    private val typeTokenPost = object : TypeToken<Post>() {}
 
     companion object {
         private const val BASE_URL = "http://10.0.2.2:9999"
@@ -81,7 +82,7 @@ class PostRepositoryImpl: PostRepository {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string() ?: throw RuntimeException("body is null")
                 try {
-                    callback.onSuccess(gson.fromJson(body, typeToken.type))
+                    callback.onSuccess(gson.fromJson(body, typeTokenPost.type))
                 } catch (e: Exception) {
                     callback.onError(e)
                 }
@@ -113,7 +114,7 @@ class PostRepositoryImpl: PostRepository {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string() ?: throw RuntimeException("body is null")
                 try {
-                    callback.onSuccess(gson.fromJson(body, typeToken.type))
+                    callback.onSuccess(gson.fromJson(body, typeTokenPost.type))
                 } catch (e: Exception) {
                     callback.onError(e)
                 }
@@ -140,7 +141,7 @@ class PostRepositoryImpl: PostRepository {
 //            .close()
 //    }
 
-    override fun removeByIdAsync(id: Long, callback: PostRepository.RepositoryCallback<List<Post>>) {
+    override fun removeByIdAsync(id: Long, callback: PostRepository.RepositoryCallback<Unit>) {
         val request: Request = Request.Builder()
             .delete()
             .url("${BASE_URL}/api/posts/$id")
@@ -149,7 +150,7 @@ class PostRepositoryImpl: PostRepository {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string() ?: throw RuntimeException("body is null")
                 try {
-                    callback.onSuccess(gson.fromJson(body, typeToken.type))
+                    callback.onSuccess(gson.fromJson(body, typeTokenPost.type))
                 } catch (e: Exception) {
                     callback.onError(e)
                 }
@@ -181,7 +182,7 @@ class PostRepositoryImpl: PostRepository {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string() ?: throw RuntimeException("body is null")
                 try {
-                    callback.onSuccess(gson.fromJson(body, typeToken.type))
+                    callback.onSuccess(gson.fromJson(body, typeTokenPost.type))
                 } catch (e: Exception) {
                     callback.onError(e)
                 }
