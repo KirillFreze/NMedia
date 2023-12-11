@@ -1,5 +1,6 @@
 package ru.netology.nmedianew.adapter
 
+import android.app.DownloadManager.Request
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings.Global.getString
@@ -11,11 +12,15 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.netology.nmedianew.R
 import ru.netology.nmedianew.databinding.CardPostBinding
 
 import ru.netology.nmedianew.dto.Post
 import ru.netology.nmedianew.activity.rounding
+import java.net.URI
+import java.net.URL
+
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
@@ -59,7 +64,10 @@ class PostViewHolder(
     private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
+
         binding.apply {
+            Glide.with(binding.avatar).load("http://10.0.2.2:9999/avatars/${post.authorAvatar}").circleCrop().into(avatar)
+
             author.text = post.author
             published.text = post.published
             content.text = post.content
