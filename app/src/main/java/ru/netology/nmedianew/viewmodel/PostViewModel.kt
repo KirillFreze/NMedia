@@ -1,9 +1,17 @@
 package ru.netology.nmedianew.viewmodel
 
 import android.app.Application
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.Button
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import ru.netology.nmedianew.R
+import ru.netology.nmedianew.activity.FeedFragment
 import ru.netology.nmedianew.dto.Post
 import ru.netology.nmedianew.model.FeedModel
 import ru.netology.nmedianew.repository.PostRepository
@@ -42,7 +50,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun loadPosts() {
 
         _data.value = FeedModel(loading = true)
-        repository.getAllAsync(object : PostRepository.RepositoryCallback<List<Post>> {
+        repository.getAllAsync(object : PostRepository.Callback<List<Post>> {
             override fun onSuccess(result: List<Post>) {
                 _data.postValue(FeedModel(posts = result, empty = result.isEmpty()))
             }
@@ -55,11 +63,16 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun save() {
         edited.value?.let {
+            repository.save(it, object : PostRepository.Callback<Post>{
+                override fun onSuccess(posts: Post) {
+                    _postCreated.value = (Unit)
+                }
 
-            repository.saveAsync(it, object : PostRepository.RepositoryCallback<Post> {})
-            _postCreated.postValue(Unit)
+                override fun onError(e: Exception) {
+                    _data.postValue(FeedModel(error = true))
+                }
+            })
         }
-        edited.value = empty
     }
 
     fun edit(post: Post) {
@@ -75,53 +88,63 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun likeById(id: Long) {
+        repository.likeById(id, object : PostRepository.Callback<Post>{
+            override fun onError(e: Exception) {
+                showError("Ошибка сервера")
 
+            }
 
-        repository.likeByIdAsync(id, object : PostRepository.RepositoryCallback<Post> {
-            override fun onSuccess(result: Post) {
+            override fun onSuccess(posts: Post) {
                 _data.postValue(
                     _data.value?.copy(
                         posts = _data.value?.posts
                             ?.map {
-                                if (it.id == id) result else it
+                                if (it.id == id) posts else it
                             }
                             ?: emptyList()
                     )
                 )
             }
-
-            override fun onError(e: Exception) {
-
-            }
         })
+
+
 
     }
 
     fun unlikeById(id: Long) {
+        repository.unLikeByID(id, object : PostRepository.Callback<Post>{
+            override fun onError(e: Exception) {
+                showError("Ошибка сервера")
 
-        repository.unlikeByIdAsync(id, object : PostRepository.RepositoryCallback<Post> {
-            override fun onSuccess(result: Post) {
+
+            }
+
+            override fun onSuccess(posts: Post) {
                 _data.postValue(
                     _data.value?.copy(
                         posts = _data.value?.posts
                             ?.map {
-                                if (it.id == id) result else it
+                                if (it.id == id) posts else it
                             }
                             ?: emptyList()
                     )
                 )
-            }
-
-            override fun onError(e: Exception) {
 
             }
         })
 
+
+
     }
 
     fun removeById(id: Long) {
-        repository.removeByIdAsync(id, object : PostRepository.RepositoryCallback<Unit> {
-            override fun onSuccess(result: Unit) {
+        repository.removeById(id, object : PostRepository.Callback<Unit>{
+            override fun onError(e: Exception) {
+                showError("Ошибка сервера")
+
+            }
+
+            override fun onSuccess(posts: Unit) {
                 _data.postValue(
                     _data.value?.copy(
                         posts = _data.value?.posts
@@ -131,22 +154,27 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                             ?: emptyList()
                     )
                 )
-            }
-
-            override fun onError(e: Exception) {
 
             }
+
         })
+
+
 
     }
 
 
-    fun sharsById(id: Long) = repository.sharsById(id)
+
 
 
     fun clearEdit() {
         edited.value = empty
     }
+    fun showError(text: String){
+        Toast.makeText(getApplication(),text, Toast.LENGTH_LONG).show()
+    }
+
+
 
 
 }

@@ -1,12 +1,17 @@
 package ru.netology.nmedianew.activity
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
@@ -41,6 +46,7 @@ class FeedFragment : Fragment() {
             override fun onLike(post: Post) {
                 if (post.likedByMe){
                     viewModel.unlikeById(post.id)
+
                 } else {
                     viewModel.likeById(post.id)
                 }
@@ -60,16 +66,8 @@ class FeedFragment : Fragment() {
             }
 
             override fun onShare(post: Post) {
-                viewModel.sharsById(post.id)
-                val intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plain"
-                }
 
-                val shareIntent =
-                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                startActivity(shareIntent)
+
             }
 
             override fun onVideo() {
@@ -106,6 +104,9 @@ class FeedFragment : Fragment() {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
 
         }
+
+
+
 
 
         return binding.root
@@ -145,6 +146,7 @@ fun rounding(count: Int): String {
 
     return result
 }
+
 
 
 

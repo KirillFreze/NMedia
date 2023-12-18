@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-282dp"
         tools:listitem="@layout/card_post" />
 
     <TextView
@@ -72,6 +74,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24dp" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
